@@ -8,4 +8,5 @@ public class Constants {
     public static final int kWalkFrequency = 5;
     public static final int KWalkMax = 40;
     public static final int KNoOfBeacons = 6;
+    public static final int ballDiameter = 9;
 }

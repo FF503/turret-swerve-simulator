@@ -1,5 +1,6 @@
 package com.team503.frc2021;
 
+import com.team503.lib.BallPose;
 import com.team503.lib.Pose;
 
 import javax.swing.*;
@@ -37,8 +38,9 @@ public class Main {
         ctx.createBufferStrategy(3); // incorrect reference to canvas
 
         Pose turretPos = new Pose(200,100, -90); //assuming 0 is front/up
-        ArrayList<Pose> shotBalls = new ArrayList<>();
-
+        ArrayList<BallPose> shotBalls = new ArrayList<>();
+        shotBalls.add(new BallPose(10, 10, 180, 0.2));
+        shotBalls.add(new BallPose(100, 350, 180, 0.2));
         while (true) {
             //bump the frame count 
             frameCount++;
@@ -48,9 +50,6 @@ public class Main {
 
             }
 
-            if (frameCount % 10 == 0) {
-                System.out.println(frameCount + "frames");
-            }
             //run particle filter for 1 frame
 
 
@@ -113,7 +112,7 @@ public class Main {
             graphics.drawLine(Constants.kFieldWidth - 95, Constants.kFieldLength - 30, Constants.kFieldWidth - 95 - 30, Constants.kFieldLength);
             graphics.drawLine(Constants.kFieldWidth - 95, Constants.kFieldLength - 30, Constants.kFieldWidth - 95 + 30, Constants.kFieldLength);
 
-            //draw Robot
+            //draw Robot todo x and y refer to upper left corner ... will fix later.
             double robotX = turretPos.getX();
             double robotY = turretPos.getY();
             graphics.setColor(Color.LIGHT_GRAY);
@@ -125,6 +124,20 @@ public class Main {
             //size of square robot
            // int kRobotSize = 30;
            // graphics.fillRect(robotX - kRobotSize / 2, robotY - kRobotSize / 2, kRobotSize, kRobotSize);
+
+            System.out.println("There are " + shotBalls.size() + " balls on the field");
+            for (int i = shotBalls.size() - 1; i >= 0; i--) {
+                BallPose ball = shotBalls.get(i);
+                //draw ball
+                graphics.setColor(Color.YELLOW);
+                graphics.fillOval((int) ball.getX() - Constants.ballDiameter / 2, (int) ball.getY() - Constants.ballDiameter / 2, Constants.ballDiameter, Constants.ballDiameter);
+                //move ball
+                ball.setX( ball.getX() + Math.cos(-1 * (ball.getTheta() + 90) * (Math.PI/180)) * ball.getSpeed() );
+                ball.setY( ball.getY() + Math.sin(-1 * (ball.getTheta() + 90) * (Math.PI/180)) * ball.getSpeed() );
+                if (ball.getX() < 0 || ball.getX() > Constants.kFieldWidth || ball.getY() < 0 || ball.getY() > Constants.kFieldLength) {
+                    shotBalls.remove(i);
+                }
+            }
 
             bufferStrategy.show();
             graphics.dispose();
