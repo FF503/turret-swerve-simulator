@@ -37,7 +37,7 @@ public class Main {
         frame.add(ctx);
         ctx.createBufferStrategy(3); // incorrect reference to canvas
 
-        Pose turretPos = new Pose(200,100, -90); //assuming 0 is front/up
+        Pose turretPos = new Pose(200,100, 90); //assuming 0 is front/up
         ArrayList<BallPose> shotBalls = new ArrayList<>();
         shotBalls.add(new BallPose(10, 10, 180, 0.2));
         shotBalls.add(new BallPose(100, 350, 180, 0.2));
@@ -112,15 +112,15 @@ public class Main {
             graphics.drawLine(Constants.kFieldWidth - 95, Constants.kFieldLength - 30, Constants.kFieldWidth - 95 - 30, Constants.kFieldLength);
             graphics.drawLine(Constants.kFieldWidth - 95, Constants.kFieldLength - 30, Constants.kFieldWidth - 95 + 30, Constants.kFieldLength);
 
-            //draw Robot todo x and y refer to upper left corner ... will fix later.
+            //draw Robot theoretically centered
             double robotX = turretPos.getX();
             double robotY = turretPos.getY();
             graphics.setColor(Color.LIGHT_GRAY);
-            graphics.fillOval((int) robotX, (int) robotY, Constants.kRobotSize, Constants.kRobotSize);
-            double lineX = robotX + Constants.kRobotSize / 2 + Math.cos(-1 * (turretPos.getTheta() + 90) * (Math.PI/180)) * (Constants.kRobotSize / 2);
-            double lineY = robotY + Constants.kRobotSize / 2 + Math.sin(-1 * (turretPos.getTheta() + 90) * (Math.PI/180)) * (Constants.kRobotSize / 2);
+            graphics.fillOval((int) robotX - (Constants.kRobotSize / 2), (int) robotY - (Constants.kRobotSize / 2), Constants.kRobotSize, Constants.kRobotSize);
+            double lineX = robotX + Math.cos(-1 * (turretPos.getTheta() + 90) * (Math.PI/180)) * (Constants.kRobotSize / 2);
+            double lineY = robotY + Math.sin(-1 * (turretPos.getTheta() + 90) * (Math.PI/180)) * (Constants.kRobotSize / 2);
             graphics.setColor(Color.green);
-            graphics.drawLine((int) robotX + Constants.kRobotSize / 2, (int) robotY + Constants.kRobotSize / 2, (int) lineX, (int) lineY);
+            graphics.drawLine((int) robotX , (int) robotY , (int) lineX, (int) lineY);
             //size of square robot
            // int kRobotSize = 30;
            // graphics.fillRect(robotX - kRobotSize / 2, robotY - kRobotSize / 2, kRobotSize, kRobotSize);
@@ -141,6 +141,9 @@ public class Main {
 
             bufferStrategy.show();
             graphics.dispose();
+
+
+
             try {
                 Thread.sleep(1000 / 60);
             } catch (InterruptedException x) {
