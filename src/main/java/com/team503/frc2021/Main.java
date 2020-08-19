@@ -1,15 +1,15 @@
 package com.team503.frc2021;
 
-import com.team503.lib.ParticleFilter;
+import com.team503.lib.Pose;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 public class Main {
-    private static int kEstimateRadius = 25;
     private static int frameCount = -1;
 
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class Main {
         });
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setFocusable(false);
+        frame.setFocusable(true);
 
         Canvas ctx = new Canvas();
 
@@ -35,6 +35,9 @@ public class Main {
         ctx.setSize(Constants.kFieldWidth, Constants.kFieldLength);
         frame.add(ctx);
         ctx.createBufferStrategy(3); // incorrect reference to canvas
+
+        Pose turretPos = new Pose(20,100, 0); //assuming 0 is front/up
+        ArrayList<Pose> shotBalls = new ArrayList<>();
 
         while (true) {
             //bump the frame count 
@@ -45,11 +48,14 @@ public class Main {
 
             }
 
+            if (frameCount % 10 == 0) {
+                System.out.println(frameCount + "frames");
+            }
             //run particle filter for 1 frame
 
 
             BufferStrategy bufferStrategy = ctx.getBufferStrategy();
-            Graphics graphics = bufferStrategy.getDrawGraphics();
+            Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
             graphics.clearRect(0, 0, Constants.kFieldWidth, Constants.kFieldLength);
 
             //draw field outline 
@@ -84,7 +90,7 @@ public class Main {
 
 
             //draw shield generator 
-            Graphics2D g2d = (Graphics2D) graphics;
+            Graphics2D g2d = graphics;
             g2d.setColor(Color.GRAY);
             g2d.translate(Constants.kFieldWidth / 2, Constants.kFieldLength / 2);
             g2d.rotate(-22.5);
@@ -109,8 +115,6 @@ public class Main {
 
             //draw Robot 
             graphics.setColor(Color.WHITE);
-          //  int robotX = (int) pf.RobotPose.getX();
-           // int robotY = (int) pf.RobotPose.getY();
             //size of square robot
            // int kRobotSize = 30;
            // graphics.fillRect(robotX - kRobotSize / 2, robotY - kRobotSize / 2, kRobotSize, kRobotSize);
