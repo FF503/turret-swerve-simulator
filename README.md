@@ -1,2 +1,2 @@
-# Particle Filter
-Research and development work for using a particle filter on Lidar sensor readings and forward-kinematic-based odometry
+# Turret Simulator
+Research and development work for implementing a turret on our 2021 robot
