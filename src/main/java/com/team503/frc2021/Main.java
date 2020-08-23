@@ -156,27 +156,55 @@ public class Main {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                double y2 = turretPos.getY();
+                double x2 = turretPos.getX();
+                double t2 = turretPos.getTheta();
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_SPACE:
                         System.out.println("Fire!");
+                        shotBalls.add(new BallPose(turretPos.getX(), turretPos.getY(), turretPos.getTheta(), Constants.ballSpeed));
                         break;
                     case KeyEvent.VK_UP:
                         System.out.println("Up");
+                         y2 -= Constants.robotSpeed;
+                        if(y2 < 0) {
+                            y2 = 0;
+                        }
+                        turretPos.setY(y2);
                         break;
                     case KeyEvent.VK_DOWN:
                         System.out.println("Down");
+                        y2 += Constants.robotSpeed;
+                        if(y2 > Constants.kFieldLength) {
+                            y2 = Constants.kFieldLength;
+                        }
+                        turretPos.setY(y2);
                         break;
                     case KeyEvent.VK_LEFT:
                         System.out.println("Left");
+                        x2 -= Constants.robotSpeed;
+                        if (x2 < 0) {
+                            x2 = 0;
+                        }
+                        turretPos.setX(x2);
                         break;
                     case KeyEvent.VK_RIGHT:
                         System.out.println("Right");
+                        x2 += Constants.robotSpeed;
+                        if (x2 > Constants.kFieldWidth) {
+                            x2 = Constants.kFieldWidth;
+                        }
+                        turretPos.setX(x2);
                         break;
                     case KeyEvent.VK_A:
                         System.out.println("Turn Left");
+                        t2 -= Constants.turnSpeed;
+                        turretPos.setTheta(t2);
                         break;
                     case KeyEvent.VK_D:
                         System.out.println("Turn Right");
+                        t2 += Constants.turnSpeed;
+                        turretPos.setTheta(t2);
                         break;
                     default:
                         System.out.println("Unknown key");
