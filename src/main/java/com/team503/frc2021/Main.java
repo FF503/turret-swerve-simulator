@@ -5,10 +5,7 @@ import com.team503.lib.Pose;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -39,7 +36,7 @@ public class Main {
         frame.add(ctx);
         ctx.createBufferStrategy(3); // incorrect reference to canvas
 
-        Pose turretPos = new Pose(200,100, 90); //assuming 0 is front/up
+        Pose turretPos = new Pose(200, 100, 90); //assuming 0 is front/up
         ArrayList<BallPose> shotBalls = new ArrayList<>();
         shotBalls.add(new BallPose(10, 10, 180, 0.2));
         shotBalls.add(new BallPose(100, 350, 180, 0.2));
@@ -122,25 +119,26 @@ public class Main {
                 double robotY = turretPos.getY();
                 graphics.setColor(Color.LIGHT_GRAY);
                 graphics.fillOval((int) robotX - (Constants.kRobotSize / 2), (int) robotY - (Constants.kRobotSize / 2), Constants.kRobotSize, Constants.kRobotSize);
-                double lineX = robotX + Math.cos(-1 * (turretPos.getTheta() + 90) * (Math.PI/180)) * (Constants.kRobotSize / 2);
-                double lineY = robotY + Math.sin(-1 * (turretPos.getTheta() + 90) * (Math.PI/180)) * (Constants.kRobotSize / 2);
+                double lineX = robotX + Math.cos(-1 * (turretPos.getTheta() + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
+                double lineY = robotY + Math.sin(-1 * (turretPos.getTheta() + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
                 graphics.setColor(Color.green);
-                graphics.drawLine((int) robotX , (int) robotY , (int) lineX, (int) lineY);
+                graphics.drawLine((int) robotX, (int) robotY, (int) lineX, (int) lineY);
                 //size of square robot
                 // int kRobotSize = 30;
                 // graphics.fillRect(robotX - kRobotSize / 2, robotY - kRobotSize / 2, kRobotSize, kRobotSize);
 
-                System.out.println("There are " + shotBalls.size() + " balls on the field");
+               // System.out.println("There are " + shotBalls.size() + " balls on the field");
                 for (int i = shotBalls.size() - 1; i >= 0; i--) {
                     BallPose ball = shotBalls.get(i);
                     //draw ball
                     graphics.setColor(Color.YELLOW);
                     graphics.fillOval((int) ball.getX() - Constants.ballDiameter / 2, (int) ball.getY() - Constants.ballDiameter / 2, Constants.ballDiameter, Constants.ballDiameter);
                     //move ball
-                    ball.setX( ball.getX() + Math.cos(-1 * (ball.getTheta() + 90) * (Math.PI/180)) * ball.getSpeed() );
-                    ball.setY( ball.getY() + Math.sin(-1 * (ball.getTheta() + 90) * (Math.PI/180)) * ball.getSpeed() );
+                    ball.setX(ball.getX() + Math.cos(-1 * (ball.getTheta() + 90) * (Math.PI / 180)) * ball.getSpeed());
+                    ball.setY(ball.getY() + Math.sin(-1 * (ball.getTheta() + 90) * (Math.PI / 180)) * ball.getSpeed());
                     if (ball.getX() < 0 || ball.getX() > Constants.kFieldWidth || ball.getY() < 0 || ball.getY() > Constants.kFieldLength) {
                         shotBalls.remove(i);
+                        System.out.println("A ball has left the field");
                     }
                 }
 
@@ -150,7 +148,49 @@ public class Main {
             }
         };
 
-        Timer graphics = new Timer(1000/60, mainLoop);
+        frame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_SPACE:
+                        System.out.println("Fire!");
+                        break;
+                    case KeyEvent.VK_UP:
+                        System.out.println("Up");
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        System.out.println("Down");
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        System.out.println("Left");
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        System.out.println("Right");
+                        break;
+                    case KeyEvent.VK_A:
+                        System.out.println("Turn Left");
+                        break;
+                    case KeyEvent.VK_D:
+                        System.out.println("Turn Right");
+                        break;
+                    default:
+                        System.out.println("Unknown key");
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+        Timer graphics = new Timer(1000 / 60, mainLoop);
         graphics.start();
     }
 }
