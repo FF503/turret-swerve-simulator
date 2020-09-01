@@ -10,6 +10,6 @@ public class Constants {
     public static final int KNoOfBeacons = 6;
     public static final int ballDiameter = 9;
     public static final double ballSpeed = 1;
-    public static final double robotSpeed = 2;
-    public static final double turnSpeed = 1;
+    public static final double robotSpeed = 5;
+    public static final double turnSpeed = 5;
 }
