@@ -196,12 +196,12 @@ public class Main {
                         }
                         turretPos.setX(x2);
                         break;
-                    case KeyEvent.VK_A:
+                    case KeyEvent.VK_D:
                         System.out.println("Turn Left");
                         t2 -= Constants.turnSpeed;
                         turretPos.setTheta(t2);
                         break;
-                    case KeyEvent.VK_D:
+                    case KeyEvent.VK_A:
                         System.out.println("Turn Right");
                         t2 += Constants.turnSpeed;
                         turretPos.setTheta(t2);
