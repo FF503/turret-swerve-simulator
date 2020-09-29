@@ -1,5 +1,6 @@
 package com.team503.frc2021;
 
+import com.team503.frc2021.subsystems.Turret;
 import com.team503.lib.BallPose;
 import com.team503.lib.Pose;
 
@@ -14,6 +15,8 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Starting Turret...");
+
+        Turret.getInstance();
 
         JFrame frame = new JFrame("FF503 Turret Simulator");
         frame.setSize(Constants.kFieldWidth + 12, Constants.kFieldLength + 38);
@@ -44,6 +47,9 @@ public class Main {
         ActionListener mainLoop = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                double turretTheta = Turret.getInstance().getTheta();
+//                System.out.println(turretTheta);
                 //bump the frame count
                 frameCount++;
 
@@ -119,8 +125,8 @@ public class Main {
                 double robotY = turretPos.getY();
                 graphics.setColor(Color.LIGHT_GRAY);
                 graphics.fillOval((int) robotX - (Constants.kRobotSize / 2), (int) robotY - (Constants.kRobotSize / 2), Constants.kRobotSize, Constants.kRobotSize);
-                double lineX = robotX + Math.cos(-1 * (turretPos.getTheta() + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
-                double lineY = robotY + Math.sin(-1 * (turretPos.getTheta() + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
+                double lineX = robotX + Math.cos(-1 * (turretTheta + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
+                double lineY = robotY + Math.sin(-1 * (turretTheta + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
                 graphics.setColor(Color.green);
                 graphics.drawLine((int) robotX, (int) robotY, (int) lineX, (int) lineY);
                 //size of square robot
@@ -197,17 +203,17 @@ public class Main {
                         turretPos.setX(x2);
                         break;
                     case KeyEvent.VK_D:
-                        System.out.println("Turn Left");
-                        t2 -= Constants.turnSpeed;
-                        turretPos.setTheta(t2);
+                        System.out.println("Turn Right");
+//                        t2 -= Constants.turnSpeed;
+                        Turret.getInstance().setDemand(1.0);
+//                        turretPos.setTheta(t2);
                         break;
                     case KeyEvent.VK_A:
-                        System.out.println("Turn Right");
-                        t2 += Constants.turnSpeed;
-                        turretPos.setTheta(t2);
+                        System.out.println("Turn Left");
+//                        t2 += Constants.turnSpeed;
+                        Turret.getInstance().setDemand(-1.0);
+//                        turretPos.setTheta(t2);
                         break;
-                    case KeyEvent.VK_J:
-
                     default:
                         System.out.println("Unknown key");
                         break;

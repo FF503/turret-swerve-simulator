@@ -12,4 +12,15 @@ public class Constants {
     public static final double ballSpeed = 1;
     public static final double robotSpeed = 5;
     public static final double turnSpeed = 15;
+
+    /* Turret Forward Kinematics */
+    public static final double kSimulatedLoad = 0.5;
+    public static final double kMaxAcceleration = 1;
+
+    /* Turret PID Constants */
+    public static final double kTurretP = 0.0;
+    public static final double kTurretI = 0.0;
+    public static final double kTurretD = 0.0;
+
+
 }
