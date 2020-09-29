@@ -37,8 +37,9 @@ public class Turret {
         currentTime = System.nanoTime();
         dt = (currentTime - lastTime) / 1000000000.0;
         lastTime = currentTime;
-
-        alpha = Constants.kSimulatedLoad * demand / omega;
+//        System.out.println(demand);
+        alpha = Constants.kSimulatedLoad * demand * (Constants.kMaxVelocity * demand - omega);
+        System.out.println(alpha);
 
         alpha = new Double(alpha).isNaN() ? Math.signum(demand) * Constants.kMaxAcceleration : Math.signum(demand) * Math.min(Constants.kMaxAcceleration, Math.abs(alpha));
 
@@ -51,6 +52,7 @@ public class Turret {
 //        } else {
 //
 //        }
+
 
         return theta;
     }
