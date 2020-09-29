@@ -206,6 +206,8 @@ public class Main {
                         t2 += Constants.turnSpeed;
                         turretPos.setTheta(t2);
                         break;
+                    case KeyEvent.VK_J:
+
                     default:
                         System.out.println("Unknown key");
                         break;
