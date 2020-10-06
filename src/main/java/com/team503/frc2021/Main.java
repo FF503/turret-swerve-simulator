@@ -211,7 +211,7 @@ public class Main {
                     case KeyEvent.VK_A:
                         System.out.println("Turn Left");
 //                        t2 += Constants.turnSpeed;
-                        Turret.getInstance().setDemand(0.0);
+                        Turret.getInstance().setDemand(1.0);
 //                        turretPos.setTheta(t2);
                         break;
                     default:
