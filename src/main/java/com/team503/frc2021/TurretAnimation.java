@@ -11,35 +11,33 @@ public class TurretAnimation extends JFrame {
 
     private TurretAnimation() {
         super("FF503 Turret Animation");
-        BufferedImage background = null;
+//        JComponent background = new JComponent() {
+//            @Override
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                try {
+//                    g.drawImage(ImageIO.read(new File("field.jpg")), 0, 0, this);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
         try {
-             background = ImageIO.read(new File("field.jpg"));
+            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("field.jpg"))));
+            add(bg);
+            System.out.println(bg.getSize());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setContentPane(new ImagePanel(background));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
     }
+
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             TurretAnimation frame = new TurretAnimation();
             frame.setVisible(true);
         });
     }
-
-    class FieldPanel extends JPanel {
-
-    }
-
-    static class ImagePanel extends JComponent {
-        private Image image;
-        public ImagePanel(Image image) {
-            this.image = image;
-        }
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(image, 0, 0, this);
-        }
-    }
-
 }
