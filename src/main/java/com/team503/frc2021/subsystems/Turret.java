@@ -37,7 +37,8 @@ public class Turret {
         currentTime = System.nanoTime();
         dt = (currentTime - lastTime) / 1000000000.0;
         lastTime = currentTime;
-//        System.out.println(demand);
+
+        // Kinematic integration
         alpha = Constants.kSimulatedLoad * demand * (Constants.kMaxVelocity * demand - omega);
         System.out.println(alpha);
 
