@@ -22,7 +22,7 @@ public class Turret {
     }
 
     public void setDemand(double demand) {
-        this.demand = demand;
+        this.demand = Math.signum(demand) * Math.min(Math.abs(demand), 1.0);
     }
 
     public ControlState getState() {
@@ -43,7 +43,7 @@ public class Turret {
 
         alpha = new Double(alpha).isNaN() ? Math.signum(alpha) * Constants.kMaxAcceleration : Math.signum(alpha) * Math.min(Constants.kMaxAcceleration, Math.abs(alpha));
 
-        System.out.println(alpha);
+//        System.out.println(alpha);
 
         omega += alpha * dt;
 

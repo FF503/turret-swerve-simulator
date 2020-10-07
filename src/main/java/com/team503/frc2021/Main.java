@@ -2,6 +2,7 @@ package com.team503.frc2021;
 
 import com.team503.frc2021.subsystems.Turret;
 import com.team503.lib.BallPose;
+import com.team503.lib.FrogPIDF;
 import com.team503.lib.Pose;
 
 import javax.swing.*;
@@ -44,11 +45,17 @@ public class Main {
         shotBalls.add(new BallPose(10, 10, 180, 0.2));
         shotBalls.add(new BallPose(100, 350, 180, 0.2));
 
+        FrogPIDF pidController = new FrogPIDF(.005, 0, 0, FrogPIDF.ControlMode.Position_Control);
+        pidController.setSetpoint(720);
+
         ActionListener mainLoop = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 double turretTheta = Turret.getInstance().getTheta();
+
+                Turret.getInstance().setDemand(pidController.calculateOutput(turretTheta));
+
 //                System.out.println(turretTheta);
                 //bump the frame count
                 frameCount++;
