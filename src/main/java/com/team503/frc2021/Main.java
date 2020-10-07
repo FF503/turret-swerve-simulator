@@ -132,8 +132,8 @@ public class Main {
                 double robotY = turretPos.getY();
                 graphics.setColor(Color.LIGHT_GRAY);
                 graphics.fillOval((int) robotX - (Constants.kRobotSize / 2), (int) robotY - (Constants.kRobotSize / 2), Constants.kRobotSize, Constants.kRobotSize);
-                double lineX = robotX + Math.cos(-1 * (turretTheta + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
-                double lineY = robotY + Math.sin(-1 * (turretTheta + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2);
+                double lineX = robotX + Math.cos(-1 * (turretTheta + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2.0);
+                double lineY = robotY + Math.sin(-1 * (turretTheta + 90) * (Math.PI / 180)) * (Constants.kRobotSize / 2.0);
                 graphics.setColor(Color.green);
                 graphics.drawLine((int) robotX, (int) robotY, (int) lineX, (int) lineY);
                 //size of square robot

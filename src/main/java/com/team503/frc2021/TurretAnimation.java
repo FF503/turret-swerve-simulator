@@ -26,13 +26,15 @@ public class TurretAnimation extends JFrame {
 
                 g2.setColor(Color.green);
 
-                int thickness = 3;
+                int thickness = 2;
                 for (int i = 0; i <= thickness; i++) {
                     g2.draw3DRect(1200 - i, 500 - i, 150 + 2 * i, 150 + 2 * i, true);
                 }
 
-                g2.setStroke(new BasicStroke(3));
-                g2.drawOval(1255, 555, 40, 40);
+                g2.setStroke(new BasicStroke(2));
+
+                g2.drawArc(1250, 510, 50, 50, 0, 360);
+//                g2.drawOval(1250, 510, 50, 50);
 
 
 
