@@ -9,8 +9,9 @@ public class Turret {
     private ControlState mState;
 
     public Turret() {
-        demand = theta = omega = dt = alpha = lastTime = currentTime = 0;
+        demand = theta = omega = dt = alpha = currentTime = 0;
         mState = ControlState.OPEN_LOOP;
+        lastTime = System.nanoTime();
     }
 
     public static Turret getInstance() {

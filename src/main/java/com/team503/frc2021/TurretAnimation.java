@@ -27,6 +27,16 @@ public class TurretAnimation extends JFrame {
                 Thread animator = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+
+                            String msg = String.format("Thread interrupted: %s", e.getMessage());
+
+                            JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
+                              JOptionPane.ERROR_MESSAGE);
+                        }
+
                         Turret.getInstance();
                         Turret.getInstance().setDemand(1);
                         long beforeTime, timeDiff, sleep;
@@ -93,7 +103,7 @@ public class TurretAnimation extends JFrame {
                 g2.setStroke(new BasicStroke(2));
 
                 g2.fillOval(1273, 533, 5, 5);
-                g2.drawLine(1275, 535, (int)(1275 - 100 * Math.cos(Math.toRadians(turretTheta))), (int)(535 + 100 * Math.sin(Math.toRadians(turretTheta))));
+                g2.drawLine(1275, 535, (int) (1275 - 100 * Math.cos(Math.toRadians(turretTheta))), (int) (535 + 100 * Math.sin(Math.toRadians(turretTheta))));
             }
         };
         add(graphicsPanel);
@@ -102,14 +112,14 @@ public class TurretAnimation extends JFrame {
         setUndecorated(true);
     }
 
-    private void cycle() {
-        turretTheta = Turret.getInstance().getTheta();
-    }
-
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             TurretAnimation frame = new TurretAnimation();
             frame.setVisible(true);
         });
+    }
+
+    private void cycle() {
+        turretTheta = Turret.getInstance().getTheta();
     }
 }
