@@ -14,8 +14,8 @@ public class Constants {
     public static final double turnSpeed = 15;
 
     /* Turret Forward Kinematics */
-    public static final double kSimulatedLoad = 5;
-    public static final double kMaxAcceleration = 4000;
+    public static final double kSimulatedLoad = 0.1;
+    public static final double kMaxAcceleration = 0.0001;
     public static final double kMaxVelocity = 305;
 
     /* Turret PID Constants */

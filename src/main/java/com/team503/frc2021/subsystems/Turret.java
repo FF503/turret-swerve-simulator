@@ -39,11 +39,14 @@ public class Turret {
         lastTime = currentTime;
 
         // Kinematic integration
-        alpha = Constants.kSimulatedLoad * (Constants.kMaxVelocity * demand - omega);
+//        alpha = Constants.kSimulatedLoad * (Constants.kMaxVelocity * demand - omega);
+
+        alpha = Constants.kSimulatedLoad * demand / omega;
 
         alpha = new Double(alpha).isNaN() ? Math.signum(alpha) * Constants.kMaxAcceleration : Math.signum(alpha) * Math.min(Constants.kMaxAcceleration, Math.abs(alpha));
 
-//        System.out.println(alpha);
+
+        System.out.println(alpha + "        " + demand);
 
         omega += alpha * dt;
 
