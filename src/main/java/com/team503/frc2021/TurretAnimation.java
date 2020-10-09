@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class TurretAnimation extends JFrame {
 
-    public static final int DELAY = 25;
+    public static final int DELAY = 5;
 
-    private JPanel graphicsPanel = null;
-    private double turretTheta = 0.0;
+    private JPanel graphicsPanel;
+    private double turretTheta;
 
     private TurretAnimation() {
         super("FF503 Turret Animation");
@@ -52,7 +52,7 @@ public class TurretAnimation extends JFrame {
                             sleep = DELAY - timeDiff;
 
                             if (sleep < 0) {
-                                sleep = 2;
+                                sleep = 0;
                             }
 
                             try {
@@ -103,13 +103,16 @@ public class TurretAnimation extends JFrame {
                 g2.setStroke(new BasicStroke(2));
 
                 g2.fillOval(1273, 533, 5, 5);
-                g2.drawLine(1275, 535, (int) (1275 - 100 * Math.cos(Math.toRadians(turretTheta))), (int) (535 + 100 * Math.sin(Math.toRadians(turretTheta))));
+                g2.drawLine(1275, 535, (int) (1275 - 65 * Math.cos(Math.toRadians(turretTheta))), (int) (535 + 65 * Math.sin(Math.toRadians(turretTheta))));
+
+                Toolkit.getDefaultToolkit().sync();
             }
         };
         add(graphicsPanel);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
