@@ -11,7 +11,6 @@ public class Constants {
     public static final int ballDiameter = 9;
     public static final double ballSpeed = 1;
     public static final double robotSpeed = 5;
-    public static final double turnSpeed = 15;
 
     /* Turret Forward Kinematics */
     public static final double kSimulatedLoad = 13;
@@ -19,9 +18,9 @@ public class Constants {
     public static final double kMaxVelocity = 429.6;
 
     /* Turret PID Constants */
-    public static final double kTurretP = 0.0;
-    public static final double kTurretI = 0.0;
-    public static final double kTurretD = 0.0;
+    public static final double kTurretP = 0.14;
+    public static final double kTurretI = 0.0000001;
+    public static final double kTurretD = 0.005;
 
 
 }

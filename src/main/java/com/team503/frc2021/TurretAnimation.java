@@ -25,13 +25,40 @@ public class TurretAnimation extends JFrame {
             public void addNotify() {
                 super.addNotify();
 
-                FrogPIDF pidController = new FrogPIDF(0.14, 0.0000001, 0.005, FrogPIDF.ControlMode.Position_Control);
+                FrogPIDF pidController = new FrogPIDF(Constants.kTurretP, Constants.kTurretI, Constants.kTurretD, FrogPIDF.ControlMode.Position_Control);
 
-                Thread animator = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+                Thread animator = new Thread(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+
+                        String msg = String.format("Thread interrupted: %s", e.getMessage());
+
+                        JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
+                          JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    Turret.getInstance();
+                    long beforeTime, timeDiff, sleep;
+
+                    pidController.setSetpoint(90);
+                    beforeTime = System.currentTimeMillis();
+
+                    while (true) {
+
+                        Turret.getInstance().setDemand(pidController.calculateOutput(Turret.getInstance().getTheta()));
+                        cycle();
+                        repaint();
+
+                        timeDiff = System.currentTimeMillis() - beforeTime;
+                        sleep = DELAY - timeDiff;
+
+                        if (sleep < 0) {
+                            sleep = 0;
+                        }
+
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(sleep);
                         } catch (InterruptedException e) {
 
                             String msg = String.format("Thread interrupted: %s", e.getMessage());
@@ -40,41 +67,7 @@ public class TurretAnimation extends JFrame {
                               JOptionPane.ERROR_MESSAGE);
                         }
 
-                        Turret.getInstance();
-                        long beforeTime, timeDiff, sleep;
-
-                        pidController.setSetpoint(90);
                         beforeTime = System.currentTimeMillis();
-                        int counter = 0;
-
-                        while (true) {
-
-//                            counter += 5;
-//                            Turret.getInstance().setDemand(counter > 3000 ? -1.0 : 1.0);
-
-                            Turret.getInstance().setDemand(pidController.calculateOutput(Turret.getInstance().getTheta()));
-                            cycle();
-                            repaint();
-
-                            timeDiff = System.currentTimeMillis() - beforeTime;
-                            sleep = DELAY - timeDiff;
-
-                            if (sleep < 0) {
-                                sleep = 0;
-                            }
-
-                            try {
-                                Thread.sleep(sleep);
-                            } catch (InterruptedException e) {
-
-                                String msg = String.format("Thread interrupted: %s", e.getMessage());
-
-                                JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
-                                  JOptionPane.ERROR_MESSAGE);
-                            }
-
-                            beforeTime = System.currentTimeMillis();
-                        }
                     }
                 });
                 animator.start();

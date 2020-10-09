@@ -13,7 +13,7 @@ public class FrogPIDF {
     private double error;
 
     public enum ControlMode {
-        Velocity_Control, Position_Control;
+        Velocity_Control, Position_Control
     }
 
     public FrogPIDF(double p, double i, double d, ControlMode controlMode) {
