@@ -1,6 +1,7 @@
 package com.team503.frc2021;
 
 import com.team503.frc2021.subsystems.Turret;
+import com.team503.lib.FrogPIDF;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,6 +25,8 @@ public class TurretAnimation extends JFrame {
             public void addNotify() {
                 super.addNotify();
 
+                FrogPIDF pidController = new FrogPIDF(0.14, 0.0000001, 0.005, FrogPIDF.ControlMode.Position_Control);
+
                 Thread animator = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -38,13 +41,18 @@ public class TurretAnimation extends JFrame {
                         }
 
                         Turret.getInstance();
-                        Turret.getInstance().setDemand(1);
                         long beforeTime, timeDiff, sleep;
 
+                        pidController.setSetpoint(90);
                         beforeTime = System.currentTimeMillis();
+                        int counter = 0;
 
                         while (true) {
 
+//                            counter += 5;
+//                            Turret.getInstance().setDemand(counter > 3000 ? -1.0 : 1.0);
+
+                            Turret.getInstance().setDemand(pidController.calculateOutput(Turret.getInstance().getTheta()));
                             cycle();
                             repaint();
 

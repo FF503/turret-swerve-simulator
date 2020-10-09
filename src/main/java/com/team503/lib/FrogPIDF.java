@@ -35,7 +35,7 @@ public class FrogPIDF {
     public void setSetpoint(double setPoint) {
         this.setPoint = setPoint;
         this.integral = 0;
-        this.lastTime = System.currentTimeMillis();
+        this.lastTime = System.nanoTime();
     }
 
     public double calculateOutput(double sensorState) {
@@ -49,8 +49,8 @@ public class FrogPIDF {
             return 0.0;
         }
         double dError = error - lastError;
-        long time = System.currentTimeMillis();
-        double dt = (time - lastTime) / 1000.0;
+        long time = System.nanoTime();
+        double dt = (time - lastTime) / 1000000000.0;
         System.out.println("Current time: " + time);
         System.out.println("Last time: " + lastTime);
         double derivative = dError / dt;
