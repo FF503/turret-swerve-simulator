@@ -45,7 +45,7 @@ public class Turret {
         System.out.println("RPM/S: " + alpha * 60 / 360);
 
         omega += alpha * dt;
-        System.out.println("RPM: " + omega * 60  / 360);
+        System.out.println("RPM: " + omega * 60 / 360);
 
         theta += omega * dt;
         System.out.println("Theta: " + theta);

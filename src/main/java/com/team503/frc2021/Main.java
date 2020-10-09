@@ -140,7 +140,7 @@ public class Main {
                 // int kRobotSize = 30;
                 // graphics.fillRect(robotX - kRobotSize / 2, robotY - kRobotSize / 2, kRobotSize, kRobotSize);
 
-               // System.out.println("There are " + shotBalls.size() + " balls on the field");
+                // System.out.println("There are " + shotBalls.size() + " balls on the field");
                 for (int i = shotBalls.size() - 1; i >= 0; i--) {
                     BallPose ball = shotBalls.get(i);
                     //draw ball
@@ -179,8 +179,8 @@ public class Main {
                         break;
                     case KeyEvent.VK_UP:
                         System.out.println("Up");
-                         y2 -= Constants.robotSpeed;
-                        if(y2 < 0) {
+                        y2 -= Constants.robotSpeed;
+                        if (y2 < 0) {
                             y2 = 0;
                         }
                         turretPos.setY(y2);
@@ -188,7 +188,7 @@ public class Main {
                     case KeyEvent.VK_DOWN:
                         System.out.println("Down");
                         y2 += Constants.robotSpeed;
-                        if(y2 > Constants.kFieldLength) {
+                        if (y2 > Constants.kFieldLength) {
                             y2 = Constants.kFieldLength;
                         }
                         turretPos.setY(y2);
