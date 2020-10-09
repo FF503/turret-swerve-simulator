@@ -40,25 +40,14 @@ public class Turret {
         lastTime = currentTime;
 
         // Kinematic integration
-//        alpha = Constants.kSimulatedLoad * (Constants.kMaxVelocity * demand - omega);
-
-        alpha = Constants.kSimulatedLoad * demand / omega;
-
+        alpha = Constants.kSimulatedLoad * (Constants.kMaxVelocity * demand - omega);
         alpha = new Double(alpha).isNaN() ? Math.signum(alpha) * Constants.kMaxAcceleration : Math.signum(alpha) * Math.min(Constants.kMaxAcceleration, Math.abs(alpha));
-
-
-        System.out.println(alpha + "        " + demand);
+        System.out.println("RPM/S: " + alpha * 60 / 360);
 
         omega += alpha * dt;
+        System.out.println("RPM: " + omega * 60  / 360);
 
         theta += omega * dt;
-
-//        if (mState == ControlState.OPEN_LOOP) {
-//
-//        } else {
-//
-//        }
-
 
         return theta;
     }
