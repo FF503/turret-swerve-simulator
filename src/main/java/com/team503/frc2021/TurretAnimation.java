@@ -35,7 +35,7 @@ public class TurretAnimation extends JFrame {
                         String msg = String.format("Thread interrupted: %s", e.getMessage());
 
                         JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
-                          JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.ERROR_MESSAGE);
                     }
 
                     Turret.getInstance();
@@ -64,7 +64,7 @@ public class TurretAnimation extends JFrame {
                             String msg = String.format("Thread interrupted: %s", e.getMessage());
 
                             JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
-                              JOptionPane.ERROR_MESSAGE);
+                                    JOptionPane.ERROR_MESSAGE);
                         }
 
                         beforeTime = System.currentTimeMillis();
@@ -97,11 +97,11 @@ public class TurretAnimation extends JFrame {
                 g2.drawArc(1250, 510, 50, 50, 0, 360);
 //                g2.drawArc();
 
-//                Polygon turretShape = new Polygon(new int[] {1260, 1290, 1290, 1285, 1285, 1265, 1265, 1260}, new int[] {505, 505, 565, 565, 570, 570, 565, 565}, 8);
-//                g2.drawPolygon(turretShape);
-
                 g2.setColor(new Color(76, 214, 58));
                 g2.setStroke(new BasicStroke(2));
+
+                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
+                g2.drawPolygon(turretShape);
 
                 g2.fillOval(1273, 533, 5, 5);
                 g2.drawLine(1275, 535, (int) (1275 - 65 * Math.cos(Math.toRadians(turretTheta))), (int) (535 + 65 * Math.sin(Math.toRadians(turretTheta))));
