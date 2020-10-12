@@ -17,6 +17,7 @@ public class TurretSwerveAnimation extends JFrame {
     private double turretTheta;
     private double robotX;
     private double robotY;
+    private double robotHeading;
 
     private TurretSwerveAnimation() {
         super("FF503 Turret Animation");
@@ -47,8 +48,8 @@ public class TurretSwerveAnimation extends JFrame {
                     beforeTime = System.currentTimeMillis();
 
                     while (true) {
-                        TurretSwerve.getInstance().setTranslationDemand(0.2, 0.0);
-                        TurretSwerve.getInstance().setTurretDemand(0.5);
+                        TurretSwerve.getInstance().setPolarSwerveDemand(0.07, 45, 0.5);
+                        TurretSwerve.getInstance().setTurretDemand(0.00);
                         cycle();
                         repaint();
 
@@ -89,7 +90,8 @@ public class TurretSwerveAnimation extends JFrame {
 
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                g2.translate(robotX % 1920 - 1200, robotY);
+                g2.translate(robotX, -robotY);
+                g2.rotate(Math.toRadians(robotHeading), 1275, 575);
                 g2.setColor(new Color(26, 26, 26));
 
                 int thickness = 2;
@@ -102,7 +104,7 @@ public class TurretSwerveAnimation extends JFrame {
 
                 Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
 
-                g2.rotate(Math.toRadians(90 - turretTheta), 1275, 530);
+                g2.rotate(Math.toRadians(turretTheta), 1275, 530);
                 g2.drawPolygon(turretShape);
 
                 Toolkit.getDefaultToolkit().sync();
@@ -126,5 +128,7 @@ public class TurretSwerveAnimation extends JFrame {
         TurretSwerve.getInstance().simulate();
         turretTheta = TurretSwerve.getInstance().getTurretTheta();
         robotX = TurretSwerve.getInstance().getRobotX();
+        robotY = TurretSwerve.getInstance().getRobotY();
+        robotHeading = TurretSwerve.getInstance().getRobotHeading();
     }
 }

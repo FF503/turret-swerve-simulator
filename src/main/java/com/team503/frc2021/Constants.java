@@ -27,10 +27,8 @@ public class Constants {
     public static final double kTranslationMaxAcceleration = 100000000;
     public static final double kTranslationMaxVelocity = 429.6 * 2;
 
-    /* Translation PID Constants */
-    public static final double kTranslationP = 0.14;
-    public static final double kTranslationI = 0.00000;
-    public static final double kTranslationD = 0.005;
-
-
+    /* Robot Rotational Forward Kinematics */
+    public static final double kRotationLoad = 13;
+    public static final double kRotationMaxAcceleration = 100000000;
+    public static final double kRotationMaxVelocity = 429.6;
 }
