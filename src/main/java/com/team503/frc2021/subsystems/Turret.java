@@ -20,7 +20,7 @@ public class Turret {
     }
 
     public void setDemand(double demand) {
-        this.demand = Math.signum(demand) * Math.min(Math.abs(demand), 1.0);
+        this.demand = Math.signum(demand) * Math.min(Math.abs(demand), 0.5);
     }
 
     public ControlState getState() {

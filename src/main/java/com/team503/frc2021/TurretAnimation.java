@@ -6,14 +6,18 @@ import com.team503.lib.FrogPIDF;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TurretAnimation extends JFrame {
 
     public static final int DELAY = 5;
 
-    private JPanel graphicsPanel;
+    private final JPanel graphicsPanel;
     private double turretTheta;
 
     private TurretAnimation() {
@@ -41,7 +45,7 @@ public class TurretAnimation extends JFrame {
                     Turret.getInstance();
                     long beforeTime, timeDiff, sleep;
 
-                    pidController.setSetpoint(90);
+                    pidController.setSetpoint(2970);
                     beforeTime = System.currentTimeMillis();
 
                     while (true) {
@@ -58,6 +62,7 @@ public class TurretAnimation extends JFrame {
                         }
 
                         try {
+                            //noinspection BusyWait
                             Thread.sleep(sleep);
                         } catch (InterruptedException e) {
 
@@ -93,18 +98,15 @@ public class TurretAnimation extends JFrame {
                     g2.draw3DRect(1200 - i, 500 - i, 150 + 2 * i, 150 + 2 * i, true);
                 }
 
-                g2.setStroke(new BasicStroke(3));
-                g2.drawArc(1250, 510, 50, 50, 0, 360);
-//                g2.drawArc();
-
                 g2.setColor(new Color(76, 214, 58));
                 g2.setStroke(new BasicStroke(2));
 
-                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
-                g2.drawPolygon(turretShape);
+//                g2.fillOval(1273, 533, 5, 5);
 
-                g2.fillOval(1273, 533, 5, 5);
-                g2.drawLine(1275, 535, (int) (1275 - 65 * Math.cos(Math.toRadians(turretTheta))), (int) (535 + 65 * Math.sin(Math.toRadians(turretTheta))));
+                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
+
+                g2.rotate(Math.toRadians(90 - turretTheta), 1275, 530);
+                g2.drawPolygon(turretShape);
 
                 Toolkit.getDefaultToolkit().sync();
             }

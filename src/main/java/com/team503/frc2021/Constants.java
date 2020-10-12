@@ -19,7 +19,7 @@ public class Constants {
 
     /* Turret PID Constants */
     public static final double kTurretP = 0.14;
-    public static final double kTurretI = 0.0000001;
+    public static final double kTurretI = 0.00000;
     public static final double kTurretD = 0.005;
 
 
