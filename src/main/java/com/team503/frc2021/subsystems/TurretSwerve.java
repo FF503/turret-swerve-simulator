@@ -32,7 +32,6 @@ public class TurretSwerve {
     public void setTranslationDemand(double xDemand, double yDemand) {
         this.xDemand = Math.signum(xDemand) * Math.min(Math.abs(xDemand), 1.0);
         this.yDemand = Math.signum(yDemand) * Math.min(Math.abs(yDemand), 1.0);
-
     }
 
     public void simulate() {
@@ -42,14 +41,32 @@ public class TurretSwerve {
 
         // Kinematic integration
         double alpha = Constants.kTurretLoad * (Constants.kTurretMaxVelocity * tDemand - tOmega);
+        double xAccel = Constants.kTranslationLoad * (Constants.kTranslationMaxVelocity * xDemand - xVelocity);
+
         alpha = Double.valueOf(alpha).isNaN() ? Math.signum(alpha) * Constants.kTurretMaxAcceleration : Math.signum(alpha) * Math.min(Constants.kTurretMaxAcceleration, Math.abs(alpha));
+        xAccel = Double.valueOf(xAccel).isNaN() ? Math.signum(xAccel) * Constants.kTranslationMaxAcceleration : Math.signum(xAccel) * Math.min(Constants.kTranslationMaxAcceleration, Math.abs(xAccel));
+
         System.out.println("RPM/S: " + alpha * 60 / 360);
+        System.out.println("PIX/S/S: " + xAccel);
 
         tOmega += alpha * dt;
+        xVelocity += xAccel * dt;
+
         System.out.println("RPM: " + tOmega * 60 / 360);
+        System.out.println("PIX/S: " + xVelocity);
 
         tTheta += tOmega * dt;
+        xPosition += xVelocity * dt;
+
         System.out.println("Theta: " + tTheta);
+        System.out.println("X Position: " + xPosition);
     }
 
+    public double getTurretTheta() {
+        return tTheta;
+    }
+
+    public double getRobotX() {
+        return xPosition;
+    }
 }

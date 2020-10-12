@@ -15,8 +15,8 @@ public class TurretSwerveAnimation extends JFrame {
 
     private final JPanel graphicsPanel;
     private double turretTheta;
-    private double xTranslation;
-    private double yTranslation;
+    private double robotX;
+    private double robotY;
 
     private TurretSwerveAnimation() {
         super("FF503 Turret Animation");
@@ -47,8 +47,8 @@ public class TurretSwerveAnimation extends JFrame {
                     beforeTime = System.currentTimeMillis();
 
                     while (true) {
-
-//                        TurretSwerve.getInstance().setTurretDemand(pidController.calculateOutput(TurretSwerve.getInstance().simulate()));
+                        TurretSwerve.getInstance().setTranslationDemand(0.2, 0.0);
+                        TurretSwerve.getInstance().setTurretDemand(0.5);
                         cycle();
                         repaint();
 
@@ -89,6 +89,7 @@ public class TurretSwerveAnimation extends JFrame {
 
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+                g2.translate(robotX % 1920 - 1200, robotY);
                 g2.setColor(new Color(26, 26, 26));
 
                 int thickness = 2;
@@ -122,6 +123,8 @@ public class TurretSwerveAnimation extends JFrame {
     }
 
     private void cycle() {
-        //turretTheta = TurretSwerve.getInstance().simulate();
+        TurretSwerve.getInstance().simulate();
+        turretTheta = TurretSwerve.getInstance().getTurretTheta();
+        robotX = TurretSwerve.getInstance().getRobotX();
     }
 }

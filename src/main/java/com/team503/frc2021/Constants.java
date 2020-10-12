@@ -25,7 +25,7 @@ public class Constants {
     /* Translation Forward Kinematics */
     public static final double kTranslationLoad = 13;
     public static final double kTranslationMaxAcceleration = 100000000;
-    public static final double kTranslationMaxVelocity = 429.6;
+    public static final double kTranslationMaxVelocity = 429.6 * 2;
 
     /* Translation PID Constants */
     public static final double kTranslationP = 0.14;
