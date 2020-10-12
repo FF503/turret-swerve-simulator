@@ -9,7 +9,7 @@ public class FrogPIDF {
     private long lastTime;
     private double lastError = 0;
     private double integral;
-    private ControlMode control;
+    private final ControlMode control;
     private double error;
 
     public FrogPIDF(double p, double i, double d, ControlMode controlMode) {
