@@ -46,7 +46,7 @@ public class TurretSwerveAnimation extends JFrame {
 
                     while (true) {
 
-                        TurretSwerve.getInstance().setDemand(pidController.calculateOutput(TurretSwerve.getInstance().getTheta()));
+//                        TurretSwerve.getInstance().setTurretDemand(pidController.calculateOutput(TurretSwerve.getInstance().simulate()));
                         cycle();
                         repaint();
 
@@ -120,6 +120,6 @@ public class TurretSwerveAnimation extends JFrame {
     }
 
     private void cycle() {
-        turretTheta = TurretSwerve.getInstance().getTheta();
+        //turretTheta = TurretSwerve.getInstance().simulate();
     }
 }

@@ -49,9 +49,9 @@ public class LegacyGraphics {
 
         ActionListener mainLoop = e -> {
 
-            double turretTheta = TurretSwerve.getInstance().getTheta();
+            double turretTheta = 0; // = TurretSwerve.getInstance().simulate();
 
-            TurretSwerve.getInstance().setDemand(pidController.calculateOutput(turretTheta));
+            TurretSwerve.getInstance().setTurretDemand(pidController.calculateOutput(turretTheta));
 
 //                System.out.println(turretTheta);
             //bump the frame count
@@ -202,13 +202,13 @@ public class LegacyGraphics {
                     case KeyEvent.VK_D:
                         System.out.println("Turn Right");
 //                        t2 -= Constants.turnSpeed;
-                        TurretSwerve.getInstance().setDemand(-1.0);
+                        TurretSwerve.getInstance().setTurretDemand(-1.0);
 //                        turretPos.setTheta(t2);
                         break;
                     case KeyEvent.VK_A:
                         System.out.println("Turn Left");
 //                        t2 += Constants.turnSpeed;
-                        TurretSwerve.getInstance().setDemand(1.0);
+                        TurretSwerve.getInstance().setTurretDemand(1.0);
 //                        turretPos.setTheta(t2);
                         break;
                     default:

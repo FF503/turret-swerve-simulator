@@ -13,14 +13,24 @@ public class Constants {
     public static final double robotSpeed = 5;
 
     /* Turret Forward Kinematics */
-    public static final double kSimulatedLoad = 13;
-    public static final double kMaxAcceleration = 100000000;
-    public static final double kMaxVelocity = 429.6;
+    public static final double kTurretLoad = 13;
+    public static final double kTurretMaxAcceleration = 100000000;
+    public static final double kTurretMaxVelocity = 429.6;
 
     /* Turret PID Constants */
     public static final double kTurretP = 0.14;
     public static final double kTurretI = 0.00000;
     public static final double kTurretD = 0.005;
+
+    /* Translational Forward Kinematics */
+    public static final double kTranslationLoad = 13;
+    public static final double kTranslationMaxAcceleration = 100000000;
+    public static final double kTranslationMaxVelocity = 429.6;
+
+    /* Translational PID Constants */
+    public static final double kTranslationP = 0.14;
+    public static final double kTranslationI = 0.00000;
+    public static final double kTranslationD = 0.005;
 
 
 }
