@@ -35,8 +35,9 @@ public class TurretSwerve {
     }
 
     public void setCartesianTranslationDemand(double xDemand, double yDemand) {
-        this.xDemand = Math.signum(xDemand) * Math.min(Math.abs(xDemand), 1.0);
-        this.yDemand = Math.signum(yDemand) * Math.min(Math.abs(yDemand), 1.0);
+        double norm = Math.hypot(xDemand, yDemand);
+        this.xDemand = (norm == 0) ? 0: xDemand / norm * Math.min(Math.max(norm, -0.3), 0.3);
+        this.yDemand = (norm == 0) ? 0: yDemand / norm * Math.min(Math.max(norm, -0.3), 0.3);
     }
 
     public void setPolarTranslationDemand(double r, double theta) {
@@ -74,21 +75,21 @@ public class TurretSwerve {
         yAccel = Double.valueOf(yAccel).isNaN() ? Math.signum(yAccel) * Constants.kTranslationMaxAcceleration : Math.signum(yAccel) * Math.min(Constants.kTranslationMaxAcceleration, Math.abs(yAccel));
         rAlpha = Double.valueOf(rAlpha).isNaN() ? Math.signum(rAlpha) * Constants.kRotationMaxAcceleration : Math.signum(rAlpha) * Math.min(Constants.kRotationMaxAcceleration, Math.abs(rAlpha));
 
-        System.out.println("RPM/S: " + tAlpha * 60 / 360);
+//        System.out.println("RPM/S: " + tAlpha * 60 / 360);
 
         tOmega += tAlpha * dt;
         xVelocity += xAccel * dt;
         yVelocity += yAccel * dt;
         rOmega += rAlpha * dt;
 
-        System.out.println("RPM: " + tOmega * 60 / 360);
+//        System.out.println("RPM: " + tOmega * 60 / 360);
 
         tTheta += tOmega * dt;
         xPosition += xVelocity * dt;
         yPosition += yVelocity * dt;
         rTheta += rOmega * dt;
 
-        System.out.println("Theta: " + tTheta);
+//        System.out.println("Theta: " + tTheta);
     }
 
     public double getTurretTheta() {

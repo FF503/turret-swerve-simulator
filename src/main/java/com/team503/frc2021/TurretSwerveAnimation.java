@@ -6,6 +6,7 @@ import com.team503.lib.FrogPIDF;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,6 +19,54 @@ public class TurretSwerveAnimation extends JFrame {
     private double robotX;
     private double robotY;
     private double robotHeading;
+
+    private static volatile boolean wPressed = false;
+
+    public static boolean isWPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return wPressed;
+        }
+    }
+
+    private static volatile boolean aPressed = false;
+
+    public static boolean isAPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return aPressed;
+        }
+    }
+
+    private static volatile boolean sPressed = false;
+
+    public static boolean isSPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return sPressed;
+        }
+    }
+
+    private static volatile boolean dPressed = false;
+
+    public static boolean isDPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return dPressed;
+        }
+    }
+
+    private static volatile boolean leftPressed = false;
+
+    public static boolean isLeftPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return leftPressed;
+        }
+    }
+
+    private static volatile boolean rightPressed = false;
+
+    public static boolean isRightPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return rightPressed;
+        }
+    }
 
     private TurretSwerveAnimation() {
         super("FF503 Turret Animation");
@@ -48,7 +97,16 @@ public class TurretSwerveAnimation extends JFrame {
                     beforeTime = System.currentTimeMillis();
 
                     while (true) {
-                        TurretSwerve.getInstance().setPolarSwerveDemand(0.07, 45, 0.5);
+                        double x, y, r;
+                        TurretSwerve.getInstance().setCartesianSwerveDemand(
+                                x = (isAPressed() ? -0.3 : 0) + (isDPressed() ? 0.3 : 0),
+                                y = (isSPressed() ? -0.3 : 0) + (isWPressed() ? 0.3 : 0),
+                                r = (isLeftPressed() ? -0.3 : 0) + (isRightPressed() ? 0.3 : 0)
+                        );
+
+                        System.out.println("X: " + x);
+                        System.out.println("Y: " + y);
+                        System.out.println("R: " + r);
                         TurretSwerve.getInstance().setTurretDemand(0.00);
                         cycle();
                         repaint();
@@ -118,6 +176,54 @@ public class TurretSwerveAnimation extends JFrame {
     }
 
     public static void main(String[] args) {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(ke -> {
+            synchronized (TurretSwerveAnimation.class) {
+                switch (ke.getID()) {
+                    case KeyEvent.KEY_PRESSED:
+                        if (ke.getKeyCode() == KeyEvent.VK_W) {
+                            wPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_A) {
+                            aPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_S) {
+                            sPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_D) {
+                            dPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                            leftPressed = true;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                            rightPressed = true;
+                        }
+                        break;
+
+                    case KeyEvent.KEY_RELEASED:
+                        if (ke.getKeyCode() == KeyEvent.VK_W) {
+                            wPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_A) {
+                            aPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_S) {
+                            sPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_D) {
+                            dPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                            leftPressed = false;
+                        }
+                        if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                            rightPressed = false;
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
         EventQueue.invokeLater(() -> {
             TurretSwerveAnimation frame = new TurretSwerveAnimation();
             frame.setVisible(true);
