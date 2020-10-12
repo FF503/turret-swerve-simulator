@@ -60,7 +60,7 @@ public class ParticleFilter {
         //Initialize other variables 
         curFrame = -1;
         maxDist = Math.floor(
-          Math.sqrt(Constants.kFieldWidth * Constants.kFieldWidth + Constants.kFieldLength * Constants.kFieldLength));
+                Math.sqrt(Constants.kFieldWidth * Constants.kFieldWidth + Constants.kFieldLength * Constants.kFieldLength));
 
         //Initialize Robot position to a random location on field 
         xPos = Math.floor(Math.random() * Constants.kFieldWidth);
@@ -152,9 +152,9 @@ public class ParticleFilter {
             for (Beacon beacon : beacons) {
                 // get distance to beacon of both the particle and the robot
                 double robotDistToBeacon = distance(xPos, yPos,
-                  beacon.getX(), beacon.getY());
+                        beacon.getX(), beacon.getY());
                 double particleDistToBeacon = distance(pose.getX(), pose.getY(),
-                  beacon.getX(), beacon.getY());
+                        beacon.getX(), beacon.getY());
                 weightSum += getWeight(robotDistToBeacon, particleDistToBeacon);
             }
             double weight = weightSum / beacons.length;

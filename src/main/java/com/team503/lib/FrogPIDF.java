@@ -12,10 +12,6 @@ public class FrogPIDF {
     private ControlMode control;
     private double error;
 
-    public enum ControlMode {
-        Velocity_Control, Position_Control
-    }
-
     public FrogPIDF(double p, double i, double d, ControlMode controlMode) {
         this.p = p;
         this.i = i;
@@ -61,7 +57,7 @@ public class FrogPIDF {
         double fOut = f * setPoint;
 
 
-        System.out.println("DT: "+ dt);
+        System.out.println("DT: " + dt);
 
         lastTime = time;
         lastError = error;
@@ -81,6 +77,10 @@ public class FrogPIDF {
 
     public double getError() {
         return error;
+    }
+
+    public enum ControlMode {
+        Velocity_Control, Position_Control
     }
 
 }

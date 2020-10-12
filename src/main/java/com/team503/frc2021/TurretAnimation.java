@@ -6,12 +6,8 @@ import com.team503.lib.FrogPIDF;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TurretAnimation extends JFrame {
 
@@ -100,8 +96,6 @@ public class TurretAnimation extends JFrame {
 
                 g2.setColor(new Color(76, 214, 58));
                 g2.setStroke(new BasicStroke(2));
-
-//                g2.fillOval(1273, 533, 5, 5);
 
                 Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
 

@@ -8,10 +8,8 @@ public class Turret {
     private double theta;
     private double omega;
     private long lastTime;
-    private ControlState mState;
 
     public Turret() {
-        mState = ControlState.OPEN_LOOP;
         lastTime = System.nanoTime();
     }
 
@@ -21,14 +19,6 @@ public class Turret {
 
     public void setDemand(double demand) {
         this.demand = Math.signum(demand) * Math.min(Math.abs(demand), 0.5);
-    }
-
-    public ControlState getState() {
-        return mState;
-    }
-
-    public void setState(ControlState mState) {
-        this.mState = mState;
     }
 
     public double getTheta() {
@@ -51,8 +41,4 @@ public class Turret {
         return theta;
     }
 
-    public enum ControlState {
-        OPEN_LOOP,
-        MOTION_MAGIC
-    }
 }
