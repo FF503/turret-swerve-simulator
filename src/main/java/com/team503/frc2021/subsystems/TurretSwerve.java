@@ -2,19 +2,19 @@ package com.team503.frc2021.subsystems;
 
 import com.team503.frc2021.Constants;
 
-public class Turret {
-    private static Turret mInstance;
+public class TurretSwerve {
+    private static TurretSwerve mInstance;
     private double demand;
     private double theta;
     private double omega;
     private long lastTime;
 
-    public Turret() {
+    public TurretSwerve() {
         lastTime = System.nanoTime();
     }
 
-    public static Turret getInstance() {
-        return mInstance == null ? mInstance = new Turret() : mInstance;
+    public static TurretSwerve getInstance() {
+        return mInstance == null ? mInstance = new TurretSwerve() : mInstance;
     }
 
     public void setDemand(double demand) {

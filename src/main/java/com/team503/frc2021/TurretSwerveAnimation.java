@@ -1,6 +1,6 @@
 package com.team503.frc2021;
 
-import com.team503.frc2021.subsystems.Turret;
+import com.team503.frc2021.subsystems.TurretSwerve;
 import com.team503.lib.FrogPIDF;
 
 import javax.imageio.ImageIO;
@@ -9,14 +9,14 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class TurretAnimation extends JFrame {
+public class TurretSwerveAnimation extends JFrame {
 
     public static final int DELAY = 5;
 
     private final JPanel graphicsPanel;
     private double turretTheta;
 
-    private TurretAnimation() {
+    private TurretSwerveAnimation() {
         super("FF503 Turret Animation");
 
         graphicsPanel = new JPanel() {
@@ -38,7 +38,7 @@ public class TurretAnimation extends JFrame {
                                 JOptionPane.ERROR_MESSAGE);
                     }
 
-                    Turret.getInstance();
+                    TurretSwerve.getInstance();
                     long beforeTime, timeDiff, sleep;
 
                     pidController.setSetpoint(2970);
@@ -46,7 +46,7 @@ public class TurretAnimation extends JFrame {
 
                     while (true) {
 
-                        Turret.getInstance().setDemand(pidController.calculateOutput(Turret.getInstance().getTheta()));
+                        TurretSwerve.getInstance().setDemand(pidController.calculateOutput(TurretSwerve.getInstance().getTheta()));
                         cycle();
                         repaint();
 
@@ -114,12 +114,12 @@ public class TurretAnimation extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            TurretAnimation frame = new TurretAnimation();
+            TurretSwerveAnimation frame = new TurretSwerveAnimation();
             frame.setVisible(true);
         });
     }
 
     private void cycle() {
-        turretTheta = Turret.getInstance().getTheta();
+        turretTheta = TurretSwerve.getInstance().getTheta();
     }
 }

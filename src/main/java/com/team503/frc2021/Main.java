@@ -1,6 +1,6 @@
 package com.team503.frc2021;
 
-import com.team503.frc2021.subsystems.Turret;
+import com.team503.frc2021.subsystems.TurretSwerve;
 import com.team503.lib.BallPose;
 import com.team503.lib.FrogPIDF;
 import com.team503.lib.Pose;
@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Starting Turret...");
 
-        Turret.getInstance();
+        TurretSwerve.getInstance();
 
         JFrame frame = new JFrame("FF503 Turret Simulator");
         frame.setSize(Constants.kFieldWidth + 12, Constants.kFieldLength + 38);
@@ -52,9 +52,9 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                double turretTheta = Turret.getInstance().getTheta();
+                double turretTheta = TurretSwerve.getInstance().getTheta();
 
-                Turret.getInstance().setDemand(pidController.calculateOutput(turretTheta));
+                TurretSwerve.getInstance().setDemand(pidController.calculateOutput(turretTheta));
 
 //                System.out.println(turretTheta);
                 //bump the frame count
@@ -212,13 +212,13 @@ public class Main {
                     case KeyEvent.VK_D:
                         System.out.println("Turn Right");
 //                        t2 -= Constants.turnSpeed;
-                        Turret.getInstance().setDemand(-1.0);
+                        TurretSwerve.getInstance().setDemand(-1.0);
 //                        turretPos.setTheta(t2);
                         break;
                     case KeyEvent.VK_A:
                         System.out.println("Turn Left");
 //                        t2 += Constants.turnSpeed;
-                        Turret.getInstance().setDemand(1.0);
+                        TurretSwerve.getInstance().setDemand(1.0);
 //                        turretPos.setTheta(t2);
                         break;
                     default:
