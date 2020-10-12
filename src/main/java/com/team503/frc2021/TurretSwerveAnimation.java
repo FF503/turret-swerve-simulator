@@ -15,6 +15,8 @@ public class TurretSwerveAnimation extends JFrame {
 
     private final JPanel graphicsPanel;
     private double turretTheta;
+    private double xTranslation;
+    private double yTranslation;
 
     private TurretSwerveAnimation() {
         super("FF503 Turret Animation");

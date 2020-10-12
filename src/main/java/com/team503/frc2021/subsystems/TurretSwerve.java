@@ -12,7 +12,7 @@ public class TurretSwerve {
     private double tTheta;
     private double tOmega;
 
-    /* Translational attributes */
+    /* Translation attributes */
     private double xDemand, yDemand;
     private double xPosition, yPosition;
     private double xVelocity, yVelocity;
@@ -29,7 +29,7 @@ public class TurretSwerve {
         this.tDemand = Math.signum(tDemand) * Math.min(Math.abs(tDemand), 1.0);
     }
 
-    public void setTranslationalDemand(double xDemand, double yDemand) {
+    public void setTranslationDemand(double xDemand, double yDemand) {
         this.xDemand = Math.signum(xDemand) * Math.min(Math.abs(xDemand), 1.0);
         this.yDemand = Math.signum(yDemand) * Math.min(Math.abs(yDemand), 1.0);
 
