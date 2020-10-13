@@ -89,9 +89,9 @@ public class TurretSwerveAnimation extends JFrame {
                     while (true) {
                         double x, y, r;
                         TurretSwerve.getInstance().setCartesianSwerveDemand(
-                                x = (isAPressed() ? -0.3 : 0) + (isDPressed() ? 0.3 : 0),
-                                y = (isSPressed() ? -0.3 : 0) + (isWPressed() ? 0.3 : 0),
-                                r = (isLeftPressed() ? -0.3 : 0) + (isRightPressed() ? 0.3 : 0)
+                                x = (isAPressed() ? -1.0 : 0) + (isDPressed() ? 1.0 : 0),
+                                y = (isSPressed() ? -1.0 : 0) + (isWPressed() ? 1.0 : 0),
+                                r = (isLeftPressed() ? -1.0 : 0) + (isRightPressed() ? 1.0 : 0)
                         );
 
                         System.out.println("X: " + x);
@@ -161,7 +161,7 @@ public class TurretSwerveAnimation extends JFrame {
                 g2.rotate(Math.toRadians(turretTheta), 1275, 530);
 
                 g2.drawPolygon(turretShape);
-                g2.drawLine(1275, 560, 1275, 100000);
+                g2.drawLine(1275, 560, 1275, 10000);
 
                 Toolkit.getDefaultToolkit().sync();
             }

@@ -36,8 +36,8 @@ public class TurretSwerve {
 
     public void setCartesianTranslationDemand(double xDemand, double yDemand) {
         double norm = Math.hypot(xDemand, yDemand);
-        this.xDemand = (norm == 0) ? 0: xDemand / norm * Math.min(Math.max(norm, -0.3), 0.3);
-        this.yDemand = (norm == 0) ? 0: yDemand / norm * Math.min(Math.max(norm, -0.3), 0.3);
+        this.xDemand = (norm == 0) ? 0: xDemand / norm * Math.min(Math.max(norm, -1.0), 1.0);
+        this.yDemand = (norm == 0) ? 0: yDemand / norm * Math.min(Math.max(norm, -1.0), 1.0);
     }
 
     public void setPolarTranslationDemand(double r, double theta) {
