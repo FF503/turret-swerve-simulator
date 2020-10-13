@@ -80,15 +80,6 @@ public class TurretSwerveAnimation extends JFrame {
                 FrogPIDF pidController = new FrogPIDF(Constants.kTurretP, Constants.kTurretI, Constants.kTurretD, FrogPIDF.ControlMode.Position_Control);
 
                 Thread animator = new Thread(() -> {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-
-                        String msg = String.format("Thread interrupted: %s", e.getMessage());
-
-                        JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
 
                     TurretSwerve.getInstance();
                     long beforeTime, timeDiff, sleep;
@@ -168,7 +159,9 @@ public class TurretSwerveAnimation extends JFrame {
                 Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
 
                 g2.rotate(Math.toRadians(turretTheta), 1275, 530);
+
                 g2.drawPolygon(turretShape);
+                g2.drawLine(1275, 560, 1275, 100000);
 
                 Toolkit.getDefaultToolkit().sync();
             }
