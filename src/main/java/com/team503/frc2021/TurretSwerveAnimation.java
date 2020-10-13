@@ -142,7 +142,7 @@ public class TurretSwerveAnimation extends JFrame {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                 g2.setColor(Color.red);
-                g2.drawOval(1315, 150, 1, 1);
+                g2.fillOval(1312, 147, 7, 7);
 
                 g2.translate(robotX, -robotY);
                 g2.rotate(Math.toRadians(robotHeading), 1275, 575);
@@ -156,12 +156,12 @@ public class TurretSwerveAnimation extends JFrame {
                 g2.setColor(new Color(76, 214, 58));
                 g2.setStroke(new BasicStroke(2));
 
-                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
+                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new    int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
 
                 g2.rotate(Math.toRadians(turretTheta), 1275, 530);
 
                 g2.drawPolygon(turretShape);
-                g2.drawLine(1275, 560, 1275, 10000);
+//                g2.drawLine(1275, 560, 1275, 10000);
 
                 Toolkit.getDefaultToolkit().sync();
             }
