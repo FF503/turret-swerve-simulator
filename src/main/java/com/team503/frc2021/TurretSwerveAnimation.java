@@ -93,7 +93,6 @@ public class TurretSwerveAnimation extends JFrame {
                     TurretSwerve.getInstance();
                     long beforeTime, timeDiff, sleep;
 
-                    pidController.setSetpoint(2970);
                     beforeTime = System.currentTimeMillis();
 
                     while (true) {
@@ -107,7 +106,10 @@ public class TurretSwerveAnimation extends JFrame {
                         System.out.println("X: " + x);
                         System.out.println("Y: " + y);
                         System.out.println("R: " + r);
-                        TurretSwerve.getInstance().setTurretDemand(0.00);
+
+                        pidController.setSetpoint(getTurretLockedDirection());
+                        TurretSwerve.getInstance().setTurretDemand(pidController.calculateOutput(turretTheta));
+
                         cycle();
                         repaint();
 
@@ -147,6 +149,9 @@ public class TurretSwerveAnimation extends JFrame {
                 }
 
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                g2.setColor(Color.red);
+                g2.drawOval(1315, 150, 1, 1);
 
                 g2.translate(robotX, -robotY);
                 g2.rotate(Math.toRadians(robotHeading), 1275, 575);
@@ -228,6 +233,13 @@ public class TurretSwerveAnimation extends JFrame {
             TurretSwerveAnimation frame = new TurretSwerveAnimation();
             frame.setVisible(true);
         });
+    }
+
+    private double getTurretLockedDirection() {
+        double turretX = 1275 + robotX;
+        double turretY = 530 - robotY;
+
+        return 270 - robotHeading - Math.toDegrees(Math.atan2(turretY - 150, 1315 - turretX));
     }
 
     private void cycle() {

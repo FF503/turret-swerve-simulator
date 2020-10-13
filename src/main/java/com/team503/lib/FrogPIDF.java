@@ -31,7 +31,9 @@ public class FrogPIDF {
     public void setSetpoint(double setPoint) {
         this.setPoint = setPoint;
         this.integral = 0;
-        this.lastTime = System.nanoTime();
+        if (this.lastTime == 0) {
+            this.lastTime = System.nanoTime();
+        }
     }
 
     public double calculateOutput(double sensorState) {
