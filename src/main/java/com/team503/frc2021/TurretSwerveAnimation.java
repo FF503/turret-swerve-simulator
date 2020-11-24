@@ -94,9 +94,9 @@ public class TurretSwerveAnimation extends JFrame {
                                 r = (isLeftPressed() ? -1.0 : 0) + (isRightPressed() ? 1.0 : 0)
                         );
 
-                        System.out.println("X: " + x);
-                        System.out.println("Y: " + y);
-                        System.out.println("R: " + r);
+//                        System.out.println("X: " + x);
+//                        System.out.println("Y: " + y);
+//                        System.out.println("R: " + r);
 
                         pidController.setSetpoint(getTurretLockedDirection());
                         TurretSwerve.getInstance().setTurretDemand(pidController.calculateOutput(turretTheta));
@@ -156,12 +156,13 @@ public class TurretSwerveAnimation extends JFrame {
                 g2.setColor(new Color(76, 214, 58));
                 g2.setStroke(new BasicStroke(2));
 
-                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new    int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
+                Polygon turretShape = new Polygon(new int[]{1255, 1295, 1295, 1285, 1285, 1265, 1265, 1255}, new int[]{505, 505, 555, 555, 560, 560, 555, 555}, 8);
 
                 g2.rotate(Math.toRadians(turretTheta), 1275, 530);
 
                 g2.drawPolygon(turretShape);
-//                g2.drawLine(1275, 560, 1275, 10000);
+                g2.drawLine(1275, 560, 1275, 10000);
+
 
                 Toolkit.getDefaultToolkit().sync();
             }
@@ -229,8 +230,11 @@ public class TurretSwerveAnimation extends JFrame {
     }
 
     private double getTurretLockedDirection() {
-        double turretX = 1275 + robotX;
-        double turretY = 530 - robotY;
+        double turretX = 1275 + 45 * Math.sin(Math.toRadians(robotHeading)) + robotX;
+        double turretY = 575 - 45 * Math.cos(Math.toRadians(robotHeading)) - robotY;
+
+        System.out.println("Turret T " + robotHeading);
+//        System.out.println("Turret Y " + turretY);
 
         return 270 - robotHeading - Math.toDegrees(Math.atan2(turretY - 150, 1315 - turretX));
     }

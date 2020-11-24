@@ -49,8 +49,8 @@ public class FrogPIDF {
         double dError = error - lastError;
         long time = System.nanoTime();
         double dt = (time - lastTime) / 1000000000.0;
-        System.out.println("Current time: " + time);
-        System.out.println("Last time: " + lastTime);
+//        System.out.println("Current time: " + time);
+//        System.out.println("Last time: " + lastTime);
         double derivative = dError / dt;
         integral += error * dt;
         double pOut = p * error;
@@ -59,7 +59,7 @@ public class FrogPIDF {
         double fOut = f * setPoint;
 
 
-        System.out.println("DT: " + dt);
+//        System.out.println("DT: " + dt);
 
         lastTime = time;
         lastError = error;
