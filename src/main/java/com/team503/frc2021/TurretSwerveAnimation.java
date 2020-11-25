@@ -1,5 +1,8 @@
 package com.team503.frc2021;
 
+import com.aromajoin.sdk.core.device.AromaShooter;
+import com.aromajoin.sdk.jvm.DiscoverCallback;
+import com.aromajoin.sdk.jvm.usb.USBASController;
 import com.team503.frc2021.subsystems.TurretSwerve;
 import com.team503.lib.FrogPIDF;
 
@@ -9,64 +12,24 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TurretSwerveAnimation extends JFrame {
 
     public static final int DELAY = 5;
-
+    private static volatile boolean wPressed = false;
+    private static volatile boolean aPressed = false;
+    private static volatile boolean sPressed = false;
+    private static volatile boolean dPressed = false;
+    private static volatile boolean leftPressed = false;
+    private static volatile boolean rightPressed = false;
     private final JPanel graphicsPanel;
     private double turretTheta;
     private double robotX;
     private double robotY;
     private double robotHeading;
-
-    private static volatile boolean wPressed = false;
-
-    public static boolean isWPressed() {
-        synchronized (TurretSwerveAnimation.class) {
-            return wPressed;
-        }
-    }
-
-    private static volatile boolean aPressed = false;
-
-    public static boolean isAPressed() {
-        synchronized (TurretSwerveAnimation.class) {
-            return aPressed;
-        }
-    }
-
-    private static volatile boolean sPressed = false;
-
-    public static boolean isSPressed() {
-        synchronized (TurretSwerveAnimation.class) {
-            return sPressed;
-        }
-    }
-
-    private static volatile boolean dPressed = false;
-
-    public static boolean isDPressed() {
-        synchronized (TurretSwerveAnimation.class) {
-            return dPressed;
-        }
-    }
-
-    private static volatile boolean leftPressed = false;
-
-    public static boolean isLeftPressed() {
-        synchronized (TurretSwerveAnimation.class) {
-            return leftPressed;
-        }
-    }
-
-    private static volatile boolean rightPressed = false;
-
-    public static boolean isRightPressed() {
-        synchronized (TurretSwerveAnimation.class) {
-            return rightPressed;
-        }
-    }
+    private static USBASController controller = new USBASController();
 
     private TurretSwerveAnimation() {
         super("FF503 Turret Animation");
@@ -94,9 +57,9 @@ public class TurretSwerveAnimation extends JFrame {
                                 r = (isLeftPressed() ? -1.0 : 0) + (isRightPressed() ? 1.0 : 0)
                         );
 
-//                        System.out.println("X: " + x);
-//                        System.out.println("Y: " + y);
-//                        System.out.println("R: " + r);
+                        System.out.println("X: " + x);
+                        System.out.println("Y: " + y);
+                        System.out.println("R: " + r);
 
                         pidController.setSetpoint(getTurretLockedDirection());
                         TurretSwerve.getInstance().setTurretDemand(pidController.calculateOutput(turretTheta));
@@ -174,7 +137,57 @@ public class TurretSwerveAnimation extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public static boolean isWPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return wPressed;
+        }
+    }
+
+    public static boolean isAPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return aPressed;
+        }
+    }
+
+    public static boolean isSPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return sPressed;
+        }
+    }
+
+    public static boolean isDPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return dPressed;
+        }
+    }
+
+    public static boolean isLeftPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return leftPressed;
+        }
+    }
+
+    public static boolean isRightPressed() {
+        synchronized (TurretSwerveAnimation.class) {
+            return rightPressed;
+        }
+    }
+
     public static void main(String[] args) {
+//        controller.scanAndConnect(new DiscoverCallback() {
+//
+//            @Override
+//            public void onDiscovered(List<AromaShooter> aromaShooters) {
+//                for(AromaShooter aromaShooter : aromaShooters){
+//                    System.out.println(aromaShooter.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(String msg) {
+//                System.out.println("Couldn't detect controller");
+//            }
+//        });
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(ke -> {
             synchronized (TurretSwerveAnimation.class) {
                 switch (ke.getID()) {
