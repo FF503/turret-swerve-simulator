@@ -23,9 +23,9 @@ public class Constants {
     public static final double kTurretD = 0.035;
 
     /* Translation Forward Kinematics */
-    public static final double kTranslationLoad = 13;
+    public static final double kTranslationLoad = 16;
     public static final double kTranslationMaxAcceleration = 4000;
-    public static final double kTranslationMaxVelocity = 600.0;
+    public static final double kTranslationMaxVelocity = 1500.0;
 
     /* Robot Rotational Forward Kinematics */
     public static final double kRotationLoad = 13;

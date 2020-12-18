@@ -1,8 +1,5 @@
 package com.team503.frc2021;
 
-import com.aromajoin.sdk.core.device.AromaShooter;
-import com.aromajoin.sdk.jvm.DiscoverCallback;
-import com.aromajoin.sdk.jvm.usb.USBASController;
 import com.team503.frc2021.subsystems.TurretSwerve;
 import com.team503.lib.FrogPIDF;
 
@@ -12,8 +9,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TurretSwerveAnimation extends JFrame {
 
@@ -29,7 +24,6 @@ public class TurretSwerveAnimation extends JFrame {
     private double robotX;
     private double robotY;
     private double robotHeading;
-    private static USBASController controller = new USBASController();
 
     private TurretSwerveAnimation() {
         super("FF503 Turret Animation");
@@ -43,6 +37,16 @@ public class TurretSwerveAnimation extends JFrame {
                 FrogPIDF pidController = new FrogPIDF(Constants.kTurretP, Constants.kTurretI, Constants.kTurretD, FrogPIDF.ControlMode.Position_Control);
 
                 Thread animator = new Thread(() -> {
+
+                    try {
+                        Thread.sleep(0);
+                    } catch (InterruptedException e) {
+
+                        String msg = String.format("Thread interrupted: %s", e.getMessage());
+
+                        JOptionPane.showMessageDialog(graphicsPanel, msg, "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
 
                     TurretSwerve.getInstance();
                     long beforeTime, timeDiff, sleep;
@@ -174,20 +178,6 @@ public class TurretSwerveAnimation extends JFrame {
     }
 
     public static void main(String[] args) {
-//        controller.scanAndConnect(new DiscoverCallback() {
-//
-//            @Override
-//            public void onDiscovered(List<AromaShooter> aromaShooters) {
-//                for(AromaShooter aromaShooter : aromaShooters){
-//                    System.out.println(aromaShooter.toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailed(String msg) {
-//                System.out.println("Couldn't detect controller");
-//            }
-//        });
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(ke -> {
             synchronized (TurretSwerveAnimation.class) {
                 switch (ke.getID()) {
@@ -245,9 +235,6 @@ public class TurretSwerveAnimation extends JFrame {
     private double getTurretLockedDirection() {
         double turretX = 1275 + 45 * Math.sin(Math.toRadians(robotHeading)) + robotX;
         double turretY = 575 - 45 * Math.cos(Math.toRadians(robotHeading)) - robotY;
-
-        System.out.println("Turret T " + robotHeading);
-//        System.out.println("Turret Y " + turretY);
 
         return 270 - robotHeading - Math.toDegrees(Math.atan2(turretY - 150, 1315 - turretX));
     }

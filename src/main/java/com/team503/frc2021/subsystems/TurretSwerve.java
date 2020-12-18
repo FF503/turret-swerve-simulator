@@ -63,7 +63,7 @@ public class TurretSwerve {
         double dt = (currentTime - lastTime) / 1000000000.0;
         lastTime = currentTime;
 
-        // Kinematic integration
+        // Kinematics: acceleration determination
         double tAlpha = Constants.kTurretLoad * (Constants.kTurretMaxVelocity * tDemand - tOmega);
         double xAccel = Constants.kTranslationLoad * (Constants.kTranslationMaxVelocity * xDemand - xVelocity);
         double yAccel = Constants.kTranslationLoad * (Constants.kTranslationMaxVelocity * yDemand - yVelocity);
@@ -77,18 +77,21 @@ public class TurretSwerve {
 
 //        System.out.println("RPM/S: " + tAlpha * 60 / 360);
 
+        // Kinematics: integration
         tOmega += tAlpha * dt;
         xVelocity += xAccel * dt;
         yVelocity += yAccel * dt;
         rOmega += rAlpha * dt;
 
-//        System.out.println("RPM: " + tOmega * 60 / 360);
+
 
         tTheta += tOmega * dt;
         xPosition += xVelocity * dt;
         yPosition += yVelocity * dt;
         rTheta += rOmega * dt;
 
+
+//        System.out.println("RPM: " + tOmega * 60 / 360);
 //        System.out.println("Theta: " + tTheta);
     }
 

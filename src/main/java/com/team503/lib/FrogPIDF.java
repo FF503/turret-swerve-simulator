@@ -40,8 +40,6 @@ public class FrogPIDF {
         this.state = sensorState;
         double error = setPoint - sensorState;
 
-//        System.out.println("PID Error: " + sensorState);
-
         this.error = error;
         if (Math.abs(error) < tolerance) {
             return 0.0;
@@ -49,8 +47,6 @@ public class FrogPIDF {
         double dError = error - lastError;
         long time = System.nanoTime();
         double dt = (time - lastTime) / 1000000000.0;
-//        System.out.println("Current time: " + time);
-//        System.out.println("Last time: " + lastTime);
         double derivative = dError / dt;
         integral += error * dt;
         double pOut = p * error;
@@ -59,12 +55,8 @@ public class FrogPIDF {
         double fOut = f * setPoint;
 
 
-//        System.out.println("DT: " + dt);
-
         lastTime = time;
         lastError = error;
-        // System.out.println("calc:"+Math.max(-1, Math.min(pOut + iOut + dOut + fOut,
-        // 1)));
 
         return Math.max(-1, Math.min(pOut + iOut + dOut + fOut, 1));
     }
